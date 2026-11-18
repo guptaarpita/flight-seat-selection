@@ -80,6 +80,7 @@
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
   border: 1px solid #e2e8f0;
+  flex-shrink: 0;
 }
 
 .layoutIcon {
@@ -284,9 +285,37 @@
   font-weight: 500;
 }
 
+/* ─── Responsive Adjustments ──────────────────────────────────── */
 @media (max-width: 992px) {
   .inner {
     padding: 1rem;
     gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .inner {
+    flex-direction: column;
+    padding: 0.85rem 1rem;
+    gap: 1rem;
+  }
+  .layoutGroup {
+    flex-direction: column;
+    width: 100%;
+  }
+  .layoutCard {
+    width: 100%;
+  }
+  .stepperContainer {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .quickActions {
+    width: 100%;
+  }
+  .autoAssignBtn,
+  .clearBtn {
+    flex: 1;
+    text-align: center;
   }
 }

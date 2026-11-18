@@ -6,6 +6,50 @@
   color: #0f172a;
 }
 
+/* ─── Mobile Tab Switcher (< 768px) ───────────────────────────── */
+.mobileTabSwitcher {
+  display: none;
+  background: #ffffff;
+  border-bottom: 1.5px solid #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  position: sticky;
+  top: 64px;
+  z-index: 80;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+  gap: 0.4rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobileTabBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.75rem;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mobileTabActive {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+}
+
+.mobileTabIcon {
+  font-size: 0.95rem;
+}
+
 /* ─── Main Content Layout ─────────────────────────────────────── */
 .mainContent {
   max-width: 1440px;
@@ -103,7 +147,7 @@
   padding: 0 1.5rem 2.5rem;
 }
 
-/* ─── Mobile Bottom Bar ───────────────────────────────────────── */
+/* ─── Mobile Bottom Floating Bar ──────────────────────────────── */
 .mobileBottomBar {
   display: none;
   position: fixed;
@@ -140,16 +184,34 @@
   color: #38bdf8;
 }
 
+.mobileBarRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobileBackToMapBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
 .mobileCtaBtn {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   border: none;
   color: #ffffff;
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 1.15rem;
   border-radius: 12px;
   font-weight: 800;
   font-size: 0.88rem;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  white-space: nowrap;
 }
 
 /* ─── Footer ─────────────────────────────────────────────────── */
@@ -185,11 +247,12 @@
   color: #64748b;
 }
 
-/* ─── Responsive Queries ──────────────────────────────────────── */
+/* ─── Responsive Media Queries ────────────────────────────────── */
 @media (max-width: 1100px) {
   .mainContent {
     grid-template-columns: 1fr;
     padding: 1.25rem 1rem;
+    gap: 1.5rem;
   }
 
   .sidebarCol {
@@ -205,8 +268,20 @@
 }
 
 @media (max-width: 768px) {
+  .mobileTabSwitcher {
+    display: flex;
+  }
+
   .sidebarCol {
     grid-template-columns: 1fr;
+  }
+
+  .hideOnMobile {
+    display: none !important;
+  }
+
+  .hideOnMobileSection {
+    display: none !important;
   }
 
   .mobileBottomBar {
@@ -214,11 +289,17 @@
   }
 
   .mainContent {
-    padding-bottom: 5.5rem;
+    padding-bottom: 6rem;
+    padding-top: 1rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .mealSection {
-    padding-bottom: 5.5rem;
+    padding-bottom: 6rem;
+    padding-top: 1rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .cardHeader {
