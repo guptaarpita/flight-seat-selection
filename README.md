@@ -1,145 +1,272 @@
-# ✈️ SkySelect — Flight Seat Selection & Passenger Management System
+<div align="center">
 
-> **Frontend Developer Assessment Project**  
-> Built with **React 19**, **Vite 8**, and **Modular CSS** for high-performance, accessible, and intuitive aircraft seat selection.
+# ✈️ SkySelect
 
-🔗 **Repository**: [https://github.com/guptaarpita/flight-seat-selection](https://github.com/guptaarpita/flight-seat-selection)  
-🔗 **Live Demo**: [Deploy on Vercel](#-deployment-guide)  
-📂 **Source Code**: Root repository contains all production-ready modules.
+### Flight Seat Selection & Passenger Management
+
+Choose a passenger, pick a seat, and watch the total update instantly.
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel)](https://flightseat-selection-bay.vercel.app/)
+[![Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/guptaarpita/flight-seat-selection)
+
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
+![CSS Modules](https://img.shields.io/badge/CSS-Modules-1572B6?logo=css3&logoColor=white)
+![State](https://img.shields.io/badge/State-Context_+_useReducer-8B5CF6)
+![Status](https://img.shields.io/badge/Status-Complete-10B981)
+
+<br/>
+
+<img src="docs/screenshots/dashboard.png" alt="SkySelect seat selection screen" width="900"/>
+
+</div>
 
 ---
 
-## 🏆 Assessment Evaluation Alignment (100% + Bonus)
+## 📑 Table of Contents
 
-| Criteria | Weight | Implementation Details in SkySelect |
+- [Overview](#-overview)
+- [Features](#-features)
+- [Screenshots](#-screenshots)
+- [Requirements Checklist](#-requirements-checklist)
+- [State Management](#-state-management)
+- [Seat Assignment Logic](#-seat-assignment-logic)
+- [Pricing](#-pricing)
+- [Seat Categories](#-seat-categories)
+- [Meal Selection (Bonus)](#-meal-selection-bonus)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Running Locally](#-running-locally)
+- [Deployment](#-deployment)
+
+---
+
+## 🌟 Overview
+
+SkySelect is a front-end only flight seat selection interface for a **Delhi (DEL) → Mumbai (BOM)** flight. Users choose the number of passengers, view the aircraft cabin, assign one seat to each passenger and see a live breakdown of all charges. All data is mock data and no backend is used.
+
+---
+
+## ✨ Features
+
+| | Feature | Details |
+|---|---|---|
+| 👥 | **Multi-passenger** | 1 to 6 passengers, switch between guests at any time, assignments are retained |
+| 🛩️ | **Two aircraft layouts** | **3–2** (Airbus A320neo) and **2–3–2** (Boeing 787 Dreamliner) with a one-click toggle |
+| 💺 | **Clear seat states** | Available, free, occupied, selected by you and taken by another passenger |
+| 💰 | **Dynamic pricing** | Free, preferred, premium and extra-legroom seats, with a live total |
+| 🍽️ | **Meal selection** | One meal per passenger, free and paid options, included in the total |
+| 🔔 | **Instant feedback** | Toast messages for invalid actions such as clicking an occupied seat |
+| 📱 | **Responsive** | Works from 320px phones to large desktops, with a mobile bottom action bar |
+| ♿ | **Accessible** | Keyboard navigation with `Tab`, `Space` and `Enter` |
+| 🎫 | **Extra** | Boarding pass modal with route, gate and barcode |
+
+---
+
+## 🖼️ Screenshots
+
+### Dashboard: route, layout toggle, passenger manifest
+<img src="docs/screenshots/dashboard.png" alt="SkySelect dashboard with layout toggle and passenger manifest" width="900"/>
+
+### Seat map (3–2, Airbus A320neo)
+<div align="center">
+<img src="docs/screenshots/seat-map.png" alt="3-2 seat map with colour-coded seats" width="460"/>
+</div>
+
+### Booking summary, pricing tiers and promo code
+<img src="docs/screenshots/summary.png" alt="Seat allocations, GST, coupon discount and total" width="900"/>
+
+### In-flight meal selection (bonus)
+<img src="docs/screenshots/meals-1.png" alt="Meal options, first row" width="900"/>
+<img src="docs/screenshots/meals-2.png" alt="Meal options, second row" width="900"/>
+
+---
+
+## ✅ Requirements Checklist
+
+| Area | Weight | How SkySelect meets it |
 | :--- | :---: | :--- |
-| **UI/UX & Visual Implementation** | **20%** | Realistic aerodynamic airplane fuselage design (cockpit windshield, lavatories, galleys, overwing exits). High-contrast color-coded seat tiers, rich interactive hover tooltips, pulse animations, and real-time floating toast notifications. |
-| **Seat Layout & Configuration Handling** | **20%** | Both required configurations supported: **Layout 1 (3–2)** on *Airbus A320neo* and **Layout 2 (2–3–2)** on *Boeing 787 Dreamliner* with true aisle spacing, row headers, emergency exit row doors, and category highlight filter pills. |
-| **Passenger & Seat Assignment Logic** | **20%** | Centralized `useReducer` managing individual guest cards. Dynamic auto-advancing selection flow, one-seat-per-passenger enforcement, collision prevention, unassign toggle, and seamless passenger switching with state retention. |
-| **Pricing & Total Calculations** | **15%** | Real-time ancillary pricing with zero lag: free seats (₹0), preferred seats (₹150), extra legroom (₹350), premium front seats (₹250), optional meal pricing, 5% GST calculation, and interactive promo codes (`FLYHIGH` / `SKYFIRST`). |
-| **Code Quality & Component Architecture** | **15%** | Pure React Context + custom `useFlight` hook, single source of truth, atomic modular components, zero external styling bloat (pure CSS Modules), strict error handling, and accessible keyboard navigation (`Tab`, `Space`, `Enter`). |
-| **Responsiveness & Edge-Case Handling** | **10%** | Fluid layouts from 320px mobile up to 4K displays. Floating mobile bottom action bar, overflow protection on aircraft cabins, and safe handling of passenger count reductions (clean seat deallocations). |
-| **🎁 BONUS FEATURE: Meal Selection** | **Bonus** | Multi-guest in-flight meal ordering with vegetarian, vegan, and non-veg options (complimentary and chef specials) itemized in the final total. |
-| **✨ EXTRA DELIGHT: Boarding Pass Modal** | **Bonus** | Interactive *"Confirm & View Boarding Passes"* modal generating realistic digital boarding cards complete with flight route (DEL → BOM), boarding gate, barcodes, and print option. |
+| **UI/UX and visual implementation** | 20% | Fuselage-style cabin, colour-coded seat tiers, hover tooltips, animations and toast notifications |
+| **Seat layout and configuration** | 20% | Both layouts supported, with true aisle spacing, row numbers, seat labels and exit rows |
+| **Passenger and seat assignment** | 20% | `useReducer` store, one seat per passenger, collision prevention, change or remove a seat, state kept when switching |
+| **Pricing and totals** | 15% | Per-seat price, per-passenger breakdown, meal charges, GST, promo codes and an instant total |
+| **Code quality and architecture** | 15% | Context plus a custom `useFlight` hook, reusable components, CSS Modules |
+| **Responsiveness and edge cases** | 10% | Fluid layout, scrollable cabin on small screens, safe handling of passenger count reductions |
+| **Bonus: meal selection** | Bonus | 10 meal options, free and paid, per passenger |
 
 ---
 
-## 🧠 State Management & Seat Assignment Logic
+## 🧠 State Management
 
-### 1. State Architecture (`FlightContext.jsx`)
+The app uses **React Context + `useReducer`** with a single source of truth. This keeps updates predictable without adding a library like Redux.
 
-The application avoids unnecessary heavyweight state libraries like Redux while maintaining complete predictability by pairing **React Context** with **`useReducer`**.
+```mermaid
+flowchart LR
+    UI["Components<br/>(SeatMap, PassengerCards, Summary)"] -- dispatch(action) --> R["Reducer"]
+    R -- new state --> C["FlightContext"]
+    C -- "useFlight()" --> UI
+```
 
-```typescript
+```ts
 interface FlightState {
-  layout: AircraftLayout;              // Active layout (3-2 or 2-3-2)
-  passengerCount: number;             // 1 to 6
-  passengers: Passenger[];            // [{ id, name, seatId, mealId }]
-  activePassengerId: string;          // Current guest selecting a seat
-  seatAssignments: Record<string, string>; // Bidirectional map: { [seatId]: passengerId }
-  categoryFilter: string;             // Active highlight filter
-  couponCode: string;                 // Applied promo code
-  discountAmount: number;             // Promotional discount in ₹
+  layout: AircraftLayout;                  // "3-2" or "2-3-2"
+  passengerCount: number;                  // 1 to 6
+  passengers: Passenger[];                 // [{ id, name, seatId, mealId }]
+  activePassengerId: string;               // guest currently choosing a seat
+  seatAssignments: Record<string, string>; // { [seatId]: passengerId }
+  categoryFilter: string;                  // active highlight filter
+  couponCode: string;                      // applied promo code
+  discountAmount: number;                  // discount in ₹
 }
 ```
 
-### 2. Assignment Flow & Collision Prevention
+**Why two lookups?** Each passenger stores their own `seatId`, and `seatAssignments` maps each seat back to a passenger. This makes conflict checks constant time, `O(1)`, because there is no need to loop through the passenger list.
 
-```
-[User clicks Seat (e.g. 2A)]
-           │
-           ▼
-    Is Seat Occupied? ───────────► YES ──► Toast: "Seat already occupied" (Blocked)
-           │ NO
-           ▼
-  Owned by another guest? ───────► YES ──► Toast: "Already assigned to [Name]" (Blocked)
-           │ NO
-           ▼
-Already owned by Active Guest? ──► YES ──► Toggle Off: Free Seat & Remove Assignment
-           │ NO
-           ▼
-1. Free previous seat of Active Guest (if any)
-2. Assign seatId -> activePassengerId in seatAssignments
-3. Update activeGuest.seatId = seatId
-4. Auto-advance active focus to next unassigned guest (if any)
-5. Recalculate Totals & trigger Success Toast
+---
+
+## 🪑 Seat Assignment Logic
+
+```mermaid
+flowchart TD
+    A([User clicks a seat]) --> B{Occupied?}
+    B -- Yes --> B1[/"Toast: Seat already occupied"/]
+    B -- No --> C{Owned by another passenger?}
+    C -- Yes --> C1[/"Toast: Already assigned to name"/]
+    C -- No --> D{Owned by the active passenger?}
+    D -- Yes --> D1[Unassign seat and free it]
+    D -- No --> E[Free the passenger's previous seat, if any]
+    E --> F[Assign seat to the active passenger]
+    F --> G[Move focus to the next passenger without a seat]
+    G --> H[Recalculate totals and show a success toast]
 ```
 
-- **$O(1)$ Lookups**: The `seatAssignments` map guarantees constant-time conflict checks without having to iterate through passenger arrays.
-- **Switching Passengers**: When switching between passenger cards, previous seat assignments remain intact because state is anchored to passenger IDs.
-- **Changing Configurations**: When switching from 3–2 to 2–3–2, seat mappings are gracefully cleared to prevent invalid coordinates.
+**Rules enforced**
+
+- Each passenger can hold **only one seat**.
+- A seat can **never be shared** between passengers.
+- Clicking your own seat again **removes** it.
+- Switching passengers **keeps** all earlier assignments, since state is tied to passenger IDs.
+- Reducing the passenger count **releases** the seats of removed passengers.
+- Changing layout from 3–2 to 2–3–2 **clears** assignments, because seat coordinates differ.
 
 ---
 
-## 🎨 Visual Seat Categories & Legend
+## 💰 Pricing
 
-| Tier | Category | Price | Pitch | Visual Style |
-| :---: | :--- | :---: | :---: | :--- |
-| **Free** | Standard | ₹0 | 30" | Emerald Green (`#10B981`) with white tag |
-| **Preferred** | Standard Preferred | ₹150 | 31" | Sky Blue (`#2563EB`) with price badge |
-| **Extra Legroom** | Extra Legroom | ₹350 | 35" | Amber Gold (`#D97706`) near exit/front |
-| **Premium** | Premium Front | ₹250 | 33" | Royal Violet (`#7C3AED`) with extra recline |
-| **Occupied** | Occupied | — | — | Slate Grey (`#94A3B8`) with disabled lock |
-| **Active** | Selected by You | — | — | Vibrant Red (`#DC2626`) with pulsing glow ring |
-| **Other** | Other Guest | — | — | Orange (`#EA580C`) with initial avatar circle |
+| Charge | Rule |
+| :--- | :--- |
+| Seat price | Set by the seat category (see below) |
+| Meal price | Free or paid, depending on the selected meal |
+| GST | 5% applied to the subtotal |
+| Promo codes | `FLYHIGH` and `SKYFIRST` |
+| **Total** | Seat charges + meal charges + GST − discount, updated on every change |
 
 ---
 
-## 🍽️ Bonus Feature: In-Flight Meal Service
+## 🎨 Seat Categories
 
-Pre-order meals per passenger (Free and Premium Options):
-1. **No Meal** (Opt-out · ₹0)
-2. **Indian Veg Thali** (Complimentary · ₹0)
-3. **Fresh Seasonal Fruit Platter** (Vegan/Healthy · ₹0)
-4. **Dum Awadhi Chicken Biryani** (Chef Special · ₹249)
-5. **Creamy Penne Alfredo** (Italian Classic · ₹189)
-6. **Smoked Chicken Club Sandwich** (Quick Bite · ₹149)
-7. **South Indian Tiffin Combo** (Complimentary · ₹0)
-8. **Atlantic Grilled Salmon** (Gourmet Non-Veg · ₹349)
-9. **Paneer Tikka Kathi Roll** (Vegetarian Street Style · ₹169)
-10. **Belgian Truffle Mousse & Macarons** (Artisan Dessert · ₹129)
+| Category | Price | Pitch | Colour |
+| :--- | :---: | :---: | :--- |
+| 🟢 Standard (free) | ₹0 | 30" | Emerald `#10B981` |
+| 🔵 Preferred | ₹150 | 31" | Blue `#2563EB` |
+| 🟣 Premium front | ₹250 | 33" | Violet `#7C3AED` |
+| 🟡 Extra legroom | ₹350 | 35" | Amber `#D97706` |
+| ⚫ Occupied | N/A | N/A | Grey `#94A3B8` |
+| 🔴 Selected by you | N/A | N/A | Red `#DC2626` |
+| 🟠 Other passenger | N/A | N/A | Orange `#EA580C` |
 
 ---
 
-## 💻 Tech Stack
+## 🍽️ Meal Selection (Bonus)
 
-- **Framework**: React 19 (Functional Components, Custom Hooks)
-- **Bundler**: Vite 8 (Hot Module Replacement, lightning-fast builds)
-- **Styling**: Pure CSS Modules with CSS Variables & Glassmorphism
-- **Fonts**: Space Grotesk (Aerospace typography) & Inter (Legibility)
-- **Icons**: Accessible UTF-8 Flight & Dining Glyphs (Zero external icon weight)
+Each passenger can choose **one** meal.
+
+| Meal | Type | Price |
+| :--- | :--- | :---: |
+| No meal | Opt-out | ₹0 |
+| Indian Veg Thali | Veg | ₹0 |
+| Fresh Seasonal Fruit Platter | Vegan | ₹0 |
+| South Indian Tiffin Combo | Veg | ₹0 |
+| Smoked Chicken Club Sandwich | Non-veg | ₹149 |
+| Paneer Tikka Kathi Roll | Veg | ₹169 |
+| Creamy Penne Alfredo | Veg | ₹189 |
+| Dum Awadhi Chicken Biryani | Non-veg | ₹249 |
+| Belgian Truffle Mousse & Macarons | Dessert | ₹129 |
+| Atlantic Grilled Salmon | Non-veg | ₹349 |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Choice |
+| :--- | :--- |
+| Framework | React 19 (functional components and custom hooks) |
+| Build tool | Vite 8 |
+| State | Context API + `useReducer` |
+| Styling | CSS Modules with CSS variables |
+| Fonts | Space Grotesk and Inter |
+| Icons | Unicode glyphs, no icon library |
+
+---
+
+## 🗂️ Project Structure
+
+```
+flight-seat-selection/
+├── docs/
+│   └── screenshots/        # images used in this README
+├── public/
+├── src/
+│   ├── components/         # SeatMap, Seat, PassengerCard, Summary, MealSelection, Toast, Header, Controls, BoardingPassModal
+│   ├── context/            # FlightContext.jsx (state + reducer)
+│   ├── data/               # mock seats, meals, layouts
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
+├── package.json
+└── README.md
+```
 
 ---
 
 ## 🚀 Running Locally
 
 ```bash
-# 1. Clone your repository
-git clone https://github.com/<your-username>/flight-seat-selection.git
+git clone https://github.com/guptaarpita/flight-seat-selection.git
 cd flight-seat-selection
-
-# 2. Install dependencies
 npm install
-
-# 3. Start local development server
 npm run dev
 ```
 
-App will run at: **`http://localhost:5173/`**
+Open **http://localhost:5173/**
+
+| Command | Purpose |
+| :--- | :--- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build in `dist/` |
+| `npm run preview` | Preview the production build |
 
 ---
 
-## 🚢 Deployment Guide
+## 🚢 Deployment
 
-### Deploy to Vercel (Recommended)
-1. Push your repository to GitHub.
-2. Sign in to [vercel.com](https://vercel.com) and click **"Add New Project"**.
-3. Import your `flight-seat-selection` repository.
-4. Framework preset will automatically detect **Vite** with output directory `dist`.
-5. Click **Deploy**!
+**Live site:** https://flightseat-selection-bay.vercel.app/
 
-### Deploy to GitHub Pages
+**Vercel**
+1. Push the repository to GitHub.
+2. Import it at [vercel.com](https://vercel.com) using **Add New Project**.
+3. Vercel detects Vite automatically (output directory `dist`).
+4. Click **Deploy**.
+
+**GitHub Pages**
 ```bash
 npm run deploy
 ```
-*(Configured with `gh-pages` script in `package.json`)*
+
+---
+
+<div align="center">
+
+Built by **Arpita Gupta** for the Frontend Developer Assessment.
+
+</div>
