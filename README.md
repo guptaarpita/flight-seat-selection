@@ -3,7 +3,8 @@
 > **Frontend Developer Assessment Project**  
 > Built with **React 19**, **Vite 8**, and **Modular CSS** for high-performance, accessible, and intuitive aircraft seat selection.
 
-🔗 **Live Demo**: [Deploy with 1-Click on Vercel or GitHub Pages](#-deployment-guide)  
+🔗 **Repository**: [https://github.com/guptaarpita/flight-seat-selection](https://github.com/guptaarpita/flight-seat-selection)  
+🔗 **Live Demo**: [Deploy on Vercel](#-deployment-guide)  
 📂 **Source Code**: Root repository contains all production-ready modules.
 
 ---
