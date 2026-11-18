@@ -30,23 +30,31 @@ export default function PriceSummary() {
     }
   };
 
+  const handleQuickCoupon = (code) => {
+    setCouponInput(code);
+    applyCoupon(code);
+  };
+
   return (
     <div className={styles.summaryCard} aria-label="Cost and Fare Summary">
-      {/* Title */}
+      {/* Header */}
       <div className={styles.header}>
-        <div className={styles.headerTitle}>
-          <span className={styles.receiptIcon}>🧾</span>
-          <h2 className={styles.title}>Fare Breakdown</h2>
+        <div className={styles.headerTitleGroup}>
+          <div className={styles.receiptBadge}>🧾</div>
+          <div>
+            <h2 className={styles.title}>Fare Breakdown</h2>
+            <span className={styles.subtitle}>Flight SS-402 · Ancillary Summary</span>
+          </div>
         </div>
-        <span className={styles.flightTag}>AI-SS402</span>
+        <span className={styles.liveTag}>LIVE FARE</span>
       </div>
 
       {assignedPassengers.length === 0 && passengersWithMeals.length === 0 ? (
         <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>✈️</div>
-          <p className={styles.emptyTitle}>No ancillary services selected</p>
+          <div className={styles.emptyIcon}>💺</div>
+          <p className={styles.emptyTitle}>No Ancillary Services Added</p>
           <p className={styles.emptySub}>
-            Select seats on the aircraft map or meals below to see the real-time breakdown.
+            Select seats on the aircraft layout above or pre-order dining below to calculate your live total.
           </p>
         </div>
       ) : (
@@ -55,7 +63,7 @@ export default function PriceSummary() {
           {assignedPassengers.length > 0 && (
             <div className={styles.section}>
               <div className={styles.sectionHeader}>
-                <span className={styles.sectionTitle}>SEAT SELECTION FEES</span>
+                <span className={styles.sectionTitle}>SEAT ALLOCATIONS</span>
                 <span className={styles.sectionCount}>({assignedPassengers.length})</span>
               </div>
 
@@ -86,7 +94,7 @@ export default function PriceSummary() {
               })}
 
               <div className={styles.subtotalRow}>
-                <span>Seat Subtotal</span>
+                <span>Seat Selection Subtotal</span>
                 <span>₹{totalSeatCost}</span>
               </div>
             </div>
@@ -96,7 +104,7 @@ export default function PriceSummary() {
           {passengersWithMeals.length > 0 && (
             <div className={styles.section}>
               <div className={styles.sectionHeader}>
-                <span className={styles.sectionTitle}>PRE-ORDER MEALS</span>
+                <span className={styles.sectionTitle}>IN-FLIGHT DINING</span>
                 <span className={styles.sectionCount}>({passengersWithMeals.length})</span>
               </div>
 
@@ -121,25 +129,25 @@ export default function PriceSummary() {
               })}
 
               <div className={styles.subtotalRow}>
-                <span>Meal Subtotal</span>
+                <span>Dining Subtotal</span>
                 <span>₹{totalMealCost}</span>
               </div>
             </div>
           )}
 
-          {/* Tax / GST Section */}
+          {/* Taxes & Fees Section */}
           <div className={styles.taxSection}>
             <div className={styles.taxRow}>
               <span>Services Subtotal</span>
               <span>₹{subtotalCost}</span>
             </div>
             <div className={styles.taxRow}>
-              <span>GST &amp; Aviation Taxes (5%)</span>
+              <span>Aviation GST &amp; Airport Tax (5%)</span>
               <span>₹{gstTax}</span>
             </div>
             {state.discountAmount > 0 && (
               <div className={`${styles.taxRow} ${styles.discountRow}`}>
-                <span>Coupon ({state.couponCode})</span>
+                <span>Coupon Discount ({state.couponCode})</span>
                 <span>-₹{state.discountAmount}</span>
               </div>
             )}
@@ -147,13 +155,13 @@ export default function PriceSummary() {
         </div>
       )}
 
-      {/* Promo Code Input */}
+      {/* Promo Code Input & Quick Apply */}
       <div className={styles.couponBlock}>
         {state.discountAmount > 0 ? (
           <div className={styles.couponApplied}>
             <div className={styles.appliedLeft}>
-              <span>🎉 Coupon <strong>{state.couponCode}</strong> applied</span>
-              <span className={styles.discountLabel}>-₹{state.discountAmount} off</span>
+              <span>🎉 Promo <strong>{state.couponCode}</strong> Applied</span>
+              <span className={styles.discountLabel}>-₹{state.discountAmount} Discount</span>
             </div>
             <button
               type="button"
@@ -164,45 +172,64 @@ export default function PriceSummary() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleApplyCoupon} className={styles.couponForm}>
-            <input
-              type="text"
-              placeholder="Promo code (e.g. FLYHIGH)"
-              className={styles.couponInput}
-              value={couponInput}
-              onChange={(e) => setCouponInput(e.target.value)}
-            />
-            <button type="submit" className={styles.couponBtn}>
-              Apply
-            </button>
-          </form>
+          <div>
+            <form onSubmit={handleApplyCoupon} className={styles.couponForm}>
+              <input
+                type="text"
+                placeholder="Promo Code (FLYHIGH / SKYFIRST)"
+                className={styles.couponInput}
+                value={couponInput}
+                onChange={(e) => setCouponInput(e.target.value)}
+              />
+              <button type="submit" className={styles.couponBtn}>
+                Apply
+              </button>
+            </form>
+            <div className={styles.quickCoupons}>
+              <span className={styles.quickLabel}>Try:</span>
+              <button
+                type="button"
+                className={styles.quickChip}
+                onClick={() => handleQuickCoupon('FLYHIGH')}
+              >
+                FLYHIGH (-₹150)
+              </button>
+              <button
+                type="button"
+                className={styles.quickChip}
+                onClick={() => handleQuickCoupon('SKYFIRST')}
+              >
+                SKYFIRST (-₹100)
+              </button>
+            </div>
+          </div>
         )}
       </div>
 
-      {/* Grand Total Box */}
+      {/* Grand Total Display */}
       <div className={styles.totalBox}>
         <div className={styles.totalLeft}>
-          <span className={styles.totalLabel}>TOTAL PAYABLE</span>
-          <span className={styles.taxInclusive}>Includes all applicable taxes</span>
+          <span className={styles.totalLabel}>TOTAL ANCILLARY FARE</span>
+          <span className={styles.taxInclusive}>Includes all applicable taxes &amp; fees</span>
         </div>
         <div className={styles.totalValue}>₹{grandTotal}</div>
       </div>
 
-      {/* Unassigned Warning Notice */}
+      {/* Unassigned Guest Warning */}
       {unassignedPassengers.length > 0 && (
         <div className={styles.unassignedNotice}>
-          ⚠️ {unassignedPassengers.length} of {state.passengers.length} passenger{unassignedPassengers.length > 1 ? 's' : ''} still need seat assignment.
+          ⚠️ {unassignedPassengers.length} of {state.passengers.length} passenger{unassignedPassengers.length > 1 ? 's' : ''} unassigned.
         </div>
       )}
 
-      {/* Confirm & Boarding Pass Action Button */}
+      {/* Boarding Passes CTA */}
       <button
         type="button"
         className={styles.checkoutBtn}
         onClick={() => setIsBoardingModalOpen(true)}
       >
         <span>Confirm &amp; View Boarding Passes</span>
-        <span>→</span>
+        <span className={styles.arrowIcon}>→</span>
       </button>
     </div>
   );

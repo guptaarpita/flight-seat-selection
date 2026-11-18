@@ -3,7 +3,7 @@ import { useFlight } from '../../context/FlightContext';
 import { SEAT_CATEGORIES } from '../../data/flightData';
 import styles from './SeatMap.module.css';
 
-// ─── Individual Seat Component ─────────────────────────────────
+// ─── Individual Ergonomic Aircraft Seat ─────────────────────────
 function Seat({ seatId }) {
   const {
     state,
@@ -44,7 +44,10 @@ function Seat({ seatId }) {
 
   // Highlighting logic for category filter
   const isFilterDimmed =
-    state.categoryFilter !== 'all' && seat.category !== state.categoryFilter && !isSelectedActive && !isSelectedOther;
+    state.categoryFilter !== 'all' &&
+    seat.category !== state.categoryFilter &&
+    !isSelectedActive &&
+    !isSelectedOther;
 
   return (
     <div
@@ -63,72 +66,90 @@ function Seat({ seatId }) {
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         disabled={isOccupied || isSelectedOther}
-        aria-label={`Seat ${seatId}, ${category.label}, ${isOccupied ? 'Occupied' : price === 0 ? 'Free' : `₹${price}`}`}
+        aria-label={`Seat ${seatId}, ${category.label}, ${
+          isOccupied ? 'Occupied' : price === 0 ? 'Free' : `₹${price}`
+        }`}
         aria-pressed={isSelectedActive}
       >
-        {/* Headrest line */}
-        <div className={styles.headrest} />
+        {/* Leather Headrest with stitch */}
+        <div className={styles.headrestWrapper}>
+          <div className={styles.headrestCushion} />
+        </div>
 
-        {/* Seat content */}
-        <span className={styles.colLetter}>{seat.col}</span>
+        {/* Armrest Left & Right */}
+        <div className={styles.armrestLeft} />
+        <div className={styles.armrestRight} />
 
-        {/* Indicator badges */}
-        {isSelectedActive && (
-          <span className={styles.activeCheck}>✓</span>
-        )}
+        {/* Seat Cushion Core */}
+        <div className={styles.seatCushion}>
+          <span className={styles.seatLetter}>{seat.col}</span>
 
-        {isSelectedOther && (
-          <span className={styles.otherInitials}>
-            {otherPassenger ? otherPassenger.name.charAt(0) : '●'}
-          </span>
-        )}
+          {/* Indicators */}
+          {isSelectedActive && <span className={styles.activeCheck}>✓</span>}
 
-        {isOccupied && (
-          <span className={styles.occupiedCross}>✕</span>
-        )}
+          {isSelectedOther && (
+            <span className={styles.otherPill}>
+              {otherPassenger ? otherPassenger.name.charAt(0) : '●'}
+            </span>
+          )}
 
-        {isAvailable && (
-          <span className={styles.priceTag}>
-            {price === 0 ? 'FREE' : `₹${price}`}
-          </span>
-        )}
+          {isOccupied && <span className={styles.occupiedCross}>✕</span>}
+
+          {isAvailable && (
+            <span className={styles.seatPriceTag}>
+              {price === 0 ? 'FREE' : `₹${price}`}
+            </span>
+          )}
+        </div>
       </button>
 
-      {/* Interactive Rich Tooltip */}
+      {/* Luxury Interactive Floating Tooltip */}
       {isHovered && (
         <div className={styles.tooltip} role="tooltip">
           <div className={styles.tooltipHeader}>
-            <span className={styles.tooltipSeatId}>{seatId}</span>
+            <div className={styles.tooltipTitleGroup}>
+              <span className={styles.tooltipSeatId}>SEAT {seatId}</span>
+              <span className={styles.tooltipFeatureTag}>{seat.feature || 'Standard'}</span>
+            </div>
             <span
-              className={styles.tooltipBadge}
-              style={{ background: category.bgColor, color: category.color }}
+              className={styles.tooltipCatBadge}
+              style={{ background: category.bgColor, color: category.color, borderColor: category.borderColor }}
             >
               {category.shortLabel}
             </span>
           </div>
 
-          <div className={styles.tooltipFeature}>
-            {seat.feature || 'Standard Seat'} · {category.pitch}
+          <div className={styles.tooltipSpecs}>
+            <span className={styles.pitchText}>📐 {category.pitch}</span>
+            <span className={styles.reclineText}>💺 Ergonomic Cushion</span>
           </div>
 
-          <div className={styles.tooltipStatus}>
+          <div className={styles.tooltipFooter}>
             {isOccupied && (
-              <span className={styles.statusOccupied}>🔒 Occupied</span>
+              <div className={styles.statusOccupiedBox}>
+                <span>🔒 Occupied by other guest</span>
+              </div>
             )}
             {isSelectedActive && (
-              <span className={styles.statusActive}>
-                ✓ Assigned to {activePassenger?.name} (Click to remove)
-              </span>
+              <div className={styles.statusActiveBox}>
+                <span>✓ Assigned to <strong>{activePassenger?.name}</strong></span>
+                <span className={styles.tooltipClickHint}>Click to release seat</span>
+              </div>
             )}
             {isSelectedOther && (
-              <span className={styles.statusOther}>
-                Assigned to {otherPassenger?.name}
-              </span>
+              <div className={styles.statusOtherBox}>
+                <span>Assigned to <strong>{otherPassenger?.name}</strong></span>
+              </div>
             )}
             {isAvailable && (
-              <span className={styles.statusAvailable}>
-                Price: <strong>{price === 0 ? 'FREE' : `₹${price}`}</strong> (Click to assign)
-              </span>
+              <div className={styles.statusAvailableBox}>
+                <span className={styles.fareLabel}>
+                  Fare: <strong>{price === 0 ? 'COMPLIMENTARY' : `₹${price}`}</strong>
+                </span>
+                <span className={styles.tooltipClickHint}>
+                  Assign to {activePassenger?.name} →
+                </span>
+              </div>
             )}
           </div>
         </div>
@@ -137,16 +158,27 @@ function Seat({ seatId }) {
   );
 }
 
-// ─── Aisle Component ───────────────────────────────────────────
+// ─── Aisle with LED Pathway Lights ──────────────────────────────
 function Aisle({ width = 'normal' }) {
   return (
     <div className={`${styles.aisle} ${styles[`aisle_${width}`]}`} aria-hidden="true">
+      <div className={styles.aisleLedStripLeft} />
       <div className={styles.aisleCarpet} />
+      <div className={styles.aisleLedStripRight} />
     </div>
   );
 }
 
-// ─── SeatMap Main Component ────────────────────────────────────
+// ─── Airplane Window on Fuselage Wall ───────────────────────────
+function CabinWindow({ side = 'left' }) {
+  return (
+    <div className={`${styles.cabinWindow} ${styles[`window_${side}`]}`} aria-hidden="true">
+      <div className={styles.windowGlass} />
+    </div>
+  );
+}
+
+// ─── Main SeatMap with Realistic Airplane Fuselage & Wings ─────
 export default function SeatMap() {
   const { state } = useFlight();
   const { layout } = state;
@@ -154,110 +186,141 @@ export default function SeatMap() {
   const rows = layout.rows;
 
   return (
-    <div className={styles.fuselageWrapper}>
-      {/* Outer Aircraft Fuselage */}
-      <div className={styles.fuselage}>
-        {/* Cockpit / Airplane Nose */}
-        <div className={styles.cockpit}>
-          <div className={styles.noseCap} />
-          <div className={styles.windshield}>
-            <div className={styles.windowLeft} />
-            <div className={styles.windowCenter} />
-            <div className={styles.windowRight} />
-          </div>
-          <div className={styles.cockpitLabel}>
-            COCKPIT · {layout.aircraftType.toUpperCase()}
+    <div className={styles.aircraftStage}>
+      {/* Outer Aircraft Fuselage Container */}
+      <div className={styles.fuselageContainer}>
+        {/* Left Wing (Rows 4–6) with RED Navigation Beacon */}
+        <div className={styles.leftWingWrapper} aria-hidden="true">
+          <div className={styles.wingStructure}>
+            <div className={styles.jetEngine} />
+            <div className={styles.wingFlapLines} />
+            <div className={styles.redNavBeacon} title="Port Navigation Light (Red)" />
+            <span className={styles.wingLabel}>LEFT WING</span>
           </div>
         </div>
 
-        {/* Front Bulkhead (Galley & Restrooms) */}
-        <div className={styles.frontBulkhead}>
-          <div className={styles.facilityPill} title="Forward Lavatory">
-            <span>🚻</span> WC
+        {/* Right Wing (Rows 4–6) with GREEN Navigation Beacon */}
+        <div className={styles.rightWingWrapper} aria-hidden="true">
+          <div className={styles.wingStructureRight}>
+            <div className={styles.jetEngine} />
+            <div className={styles.wingFlapLines} />
+            <div className={styles.greenNavBeacon} title="Starboard Navigation Light (Green)" />
+            <span className={styles.wingLabel}>RIGHT WING</span>
           </div>
-          <div className={styles.curtainDivider} />
-          <div className={styles.facilityPill} title="Forward Galley">
-            <span>☕</span> Galley
+        </div>
+
+        {/* Aerodynamic Cockpit Nose */}
+        <div className={styles.noseSection}>
+          <div className={styles.noseRadome} />
+          <div className={styles.cockpitCanopy}>
+            <div className={styles.windshieldLeft} />
+            <div className={styles.windshieldCenter} />
+            <div className={styles.windshieldRight} />
+          </div>
+          <div className={styles.aircraftBadge}>
+            <span className={styles.aircraftIcon}>✈</span>
+            <span>{layout.aircraftType.toUpperCase()}</span>
+          </div>
+        </div>
+
+        {/* Forward Bulkhead & Cabin Amenities */}
+        <div className={styles.cabinBulkhead}>
+          <div className={styles.amenityCard} title="Forward Lavatory">
+            <span className={styles.amenityIcon}>🚻</span>
+            <span className={styles.amenityText}>LAVATORY</span>
+          </div>
+          <div className={styles.cockpitDoorPill}>
+            <span>COCKPIT BULKHEAD</span>
+          </div>
+          <div className={styles.amenityCard} title="Forward Galley Service">
+            <span className={styles.amenityIcon}>☕</span>
+            <span className={styles.amenityText}>GALLEY</span>
           </div>
         </div>
 
         {/* Column Header Letters */}
         <div className={styles.colHeaderRow}>
-          <div className={styles.rowNumberCol} />
+          <div className={styles.rowSpacer} />
           {!is232 ? (
             <>
-              <div className={styles.seatGroup}>
+              <div className={styles.seatCluster}>
                 {layout.leftCols.map((c) => (
-                  <div key={c} className={styles.colHeaderCell}>{c}</div>
+                  <div key={c} className={styles.headerLetter}>{c}</div>
                 ))}
               </div>
               <Aisle />
-              <div className={styles.seatGroup}>
+              <div className={styles.seatCluster}>
                 {layout.rightCols.map((c) => (
-                  <div key={c} className={styles.colHeaderCell}>{c}</div>
+                  <div key={c} className={styles.headerLetter}>{c}</div>
                 ))}
               </div>
             </>
           ) : (
             <>
-              <div className={styles.seatGroup}>
+              <div className={styles.seatCluster}>
                 {layout.leftCols.map((c) => (
-                  <div key={c} className={styles.colHeaderCell}>{c}</div>
+                  <div key={c} className={styles.headerLetter}>{c}</div>
                 ))}
               </div>
               <Aisle width="narrow" />
-              <div className={styles.seatGroup}>
+              <div className={styles.seatCluster}>
                 {layout.middleCols.map((c) => (
-                  <div key={c} className={styles.colHeaderCell}>{c}</div>
+                  <div key={c} className={styles.headerLetter}>{c}</div>
                 ))}
               </div>
               <Aisle width="narrow" />
-              <div className={styles.seatGroup}>
+              <div className={styles.seatCluster}>
                 {layout.rightCols.map((c) => (
-                  <div key={c} className={styles.colHeaderCell}>{c}</div>
+                  <div key={c} className={styles.headerLetter}>{c}</div>
                 ))}
               </div>
             </>
           )}
+          <div className={styles.rowSpacer} />
         </div>
 
-        {/* Cabin Seating Grid */}
-        <div className={styles.cabinGrid}>
+        {/* Cabin Rows */}
+        <div className={styles.cabinInterior}>
           {Array.from({ length: rows }, (_, idx) => idx + 1).map((rowNum) => {
             const isExitRow = layout.exitRows?.includes(rowNum);
 
             return (
-              <div key={rowNum} className={styles.rowContainer}>
-                {/* Emergency exit row indicator if applicable */}
+              <div key={rowNum} className={styles.rowWrapper}>
+                {/* Emergency Exit Row Header Banner */}
                 {isExitRow && (
-                  <div className={styles.exitRowBanner}>
-                    <span className={styles.exitIcon}>🚪</span>
-                    <span>EMERGENCY EXIT ROW · EXTRA LEGROOM</span>
-                    <span className={styles.exitIcon}>🚪</span>
+                  <div className={styles.emergencyExitBanner}>
+                    <span className={styles.exitRunningMan}>🚪</span>
+                    <span>EMERGENCY EXIT ROW · PRIORITY LEGROOM</span>
+                    <span className={styles.exitRunningMan}>🚪</span>
                   </div>
                 )}
 
                 <div className={`${styles.seatRow} ${isExitRow ? styles.exitRowHighlight : ''}`}>
-                  {/* Left Emergency Exit Door tab */}
-                  {isExitRow && <div className={`${styles.exitDoorTab} ${styles.exitLeft}`} title="Emergency Exit Door" />}
+                  {/* Left Aircraft Oval Window */}
+                  <CabinWindow side="left" />
 
-                  {/* Row Number */}
-                  <div className={styles.rowNumberCol}>{rowNum}</div>
+                  {/* Left Emergency Door Marker */}
+                  {isExitRow && (
+                    <div className={`${styles.exitDoor} ${styles.exitDoorLeft}`} title="Emergency Exit Door" />
+                  )}
+
+                  {/* Row Number Pill */}
+                  <div className={styles.rowNumberPill}>{rowNum}</div>
 
                   {!is232 ? (
                     <>
-                      {/* Left 3 seats: A, B, C */}
-                      <div className={styles.seatGroup}>
+                      {/* Left Group: A, B, C */}
+                      <div className={styles.seatCluster}>
                         {layout.leftCols.map((col) => (
                           <Seat key={col} seatId={`${rowNum}${col}`} />
                         ))}
                       </div>
 
-                      {/* Center Aisle */}
+                      {/* Aisle */}
                       <Aisle />
 
-                      {/* Right 2 seats: D, E */}
-                      <div className={styles.seatGroup}>
+                      {/* Right Group: D, E */}
+                      <div className={styles.seatCluster}>
                         {layout.rightCols.map((col) => (
                           <Seat key={col} seatId={`${rowNum}${col}`} />
                         ))}
@@ -265,28 +328,26 @@ export default function SeatMap() {
                     </>
                   ) : (
                     <>
-                      {/* Left 2 seats: A, B */}
-                      <div className={styles.seatGroup}>
+                      {/* Left: A, B */}
+                      <div className={styles.seatCluster}>
                         {layout.leftCols.map((col) => (
                           <Seat key={col} seatId={`${rowNum}${col}`} />
                         ))}
                       </div>
 
-                      {/* Left Aisle */}
                       <Aisle width="narrow" />
 
-                      {/* Middle 3 seats: D, E, F */}
-                      <div className={styles.seatGroup}>
+                      {/* Middle: D, E, F */}
+                      <div className={styles.seatCluster}>
                         {layout.middleCols.map((col) => (
                           <Seat key={col} seatId={`${rowNum}${col}`} />
                         ))}
                       </div>
 
-                      {/* Right Aisle */}
                       <Aisle width="narrow" />
 
-                      {/* Right 2 seats: G, H */}
-                      <div className={styles.seatGroup}>
+                      {/* Right: G, H */}
+                      <div className={styles.seatCluster}>
                         {layout.rightCols.map((col) => (
                           <Seat key={col} seatId={`${rowNum}${col}`} />
                         ))}
@@ -294,93 +355,142 @@ export default function SeatMap() {
                     </>
                   )}
 
-                  {/* Right Emergency Exit Door tab */}
-                  {isExitRow && <div className={`${styles.exitDoorTab} ${styles.exitRight}`} title="Emergency Exit Door" />}
+                  {/* Right Emergency Door Marker */}
+                  {isExitRow && (
+                    <div className={`${styles.exitDoor} ${styles.exitDoorRight}`} title="Emergency Exit Door" />
+                  )}
+
+                  {/* Right Aircraft Oval Window */}
+                  <CabinWindow side="right" />
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Rear Bulkhead & Tail */}
-        <div className={styles.rearBulkhead}>
-          <div className={styles.facilityPill} title="Aft Lavatory">
-            <span>🚻</span> WC
+        {/* Aft / Rear Bulkhead & Tail Section */}
+        <div className={styles.aftBulkhead}>
+          <div className={styles.amenityCard} title="Aft Lavatory">
+            <span className={styles.amenityIcon}>🚻</span>
+            <span className={styles.amenityText}>LAVATORY</span>
           </div>
-          <div className={styles.curtainDivider} />
-          <div className={styles.facilityPill} title="Aft Galley">
-            <span>☕</span> Galley
+          <div className={styles.amenityCard} title="Aft Galley Service">
+            <span className={styles.amenityIcon}>☕</span>
+            <span className={styles.amenityText}>AFT GALLEY</span>
           </div>
         </div>
 
-        <div className={styles.planeTail} />
+        {/* Aircraft Tail Cone Fin */}
+        <div className={styles.aircraftTailCone}>
+          <div className={styles.tailFin} />
+        </div>
       </div>
 
-      {/* Visual Legend */}
+      {/* Enhanced Legend Card */}
       <SeatLegend />
     </div>
   );
 }
 
-// ─── Seat Legend ───────────────────────────────────────────────
+// ─── Seat Map Legend ───────────────────────────────────────────
 function SeatLegend() {
+  const { state } = useFlight();
+
+  // Count available seats by category
+  const counts = Object.values(state.layout.seats).reduce((acc, seat) => {
+    if (!seat.occupied && !state.seatAssignments[`${seat.row}${seat.col}`]) {
+      acc[seat.category] = (acc[seat.category] || 0) + 1;
+    }
+    return acc;
+  }, {});
+
   return (
     <div className={styles.legendContainer} aria-label="Seat Map Legend">
-      <h3 className={styles.legendHeading}>Seat Legend &amp; Availability</h3>
+      <div className={styles.legendHeader}>
+        <div className={styles.legendTitle}>SEAT AVAILABILITY &amp; PRICING TIERS</div>
+        <div className={styles.legendSub}>Select your preferred tier or click any seat above</div>
+      </div>
+
       <div className={styles.legendGrid}>
-        <div className={styles.legendCard}>
-          <div className={`${styles.swatch} ${styles.swatchFree}`} />
-          <div className={styles.swatchInfo}>
-            <span className={styles.swatchTitle}>Standard (Free)</span>
-            <span className={styles.swatchPrice}>₹0 Complimentary</span>
+        <div className={styles.legendItem}>
+          <div className={`${styles.swatchSeat} ${styles.swatchFree}`}>
+            <span className={styles.swatchLetter}>A</span>
+          </div>
+          <div className={styles.swatchText}>
+            <div className={styles.swatchName}>
+              <span>Standard (Free)</span>
+              <span className={styles.countBadge}>{counts.free || 0} left</span>
+            </div>
+            <span className={styles.swatchCost}>₹0 · Complimentary</span>
           </div>
         </div>
 
-        <div className={styles.legendCard}>
-          <div className={`${styles.swatch} ${styles.swatchStandard}`} />
-          <div className={styles.swatchInfo}>
-            <span className={styles.swatchTitle}>Standard Preferred</span>
-            <span className={styles.swatchPrice}>₹150</span>
+        <div className={styles.legendItem}>
+          <div className={`${styles.swatchSeat} ${styles.swatchStandard}`}>
+            <span className={styles.swatchLetter}>B</span>
+          </div>
+          <div className={styles.swatchText}>
+            <div className={styles.swatchName}>
+              <span>Standard Preferred</span>
+              <span className={styles.countBadge}>{counts.standard || 0} left</span>
+            </div>
+            <span className={styles.swatchCost}>₹150 · Preferred Zone</span>
           </div>
         </div>
 
-        <div className={styles.legendCard}>
-          <div className={`${styles.swatch} ${styles.swatchExtraLegroom}`} />
-          <div className={styles.swatchInfo}>
-            <span className={styles.swatchTitle}>Extra Legroom</span>
-            <span className={styles.swatchPrice}>₹350</span>
+        <div className={styles.legendItem}>
+          <div className={`${styles.swatchSeat} ${styles.swatchExtraLegroom}`}>
+            <span className={styles.swatchLetter}>C</span>
+          </div>
+          <div className={styles.swatchText}>
+            <div className={styles.swatchName}>
+              <span>Extra Legroom</span>
+              <span className={styles.countBadge}>{counts.extraLegroom || 0} left</span>
+            </div>
+            <span className={styles.swatchCost}>₹350 · 35" Pitch</span>
           </div>
         </div>
 
-        <div className={styles.legendCard}>
-          <div className={`${styles.swatch} ${styles.swatchPremium}`} />
-          <div className={styles.swatchInfo}>
-            <span className={styles.swatchTitle}>Premium Front</span>
-            <span className={styles.swatchPrice}>₹250</span>
+        <div className={styles.legendItem}>
+          <div className={`${styles.swatchSeat} ${styles.swatchPremium}`}>
+            <span className={styles.swatchLetter}>D</span>
+          </div>
+          <div className={styles.swatchText}>
+            <div className={styles.swatchName}>
+              <span>Premium Front</span>
+              <span className={styles.countBadge}>{counts.premium || 0} left</span>
+            </div>
+            <span className={styles.swatchCost}>₹250 · Priority Exit</span>
           </div>
         </div>
 
-        <div className={styles.legendCard}>
-          <div className={`${styles.swatch} ${styles.swatchActive}`} />
-          <div className={styles.swatchInfo}>
-            <span className={styles.swatchTitle}>Selected by You</span>
-            <span className={styles.swatchPrice}>Click to unassign</span>
+        <div className={styles.legendItem}>
+          <div className={`${styles.swatchSeat} ${styles.swatchActive}`}>
+            <span className={styles.swatchLetter}>✓</span>
+          </div>
+          <div className={styles.swatchText}>
+            <span className={styles.swatchName}>Selected by You</span>
+            <span className={styles.swatchCost}>Click again to release</span>
           </div>
         </div>
 
-        <div className={styles.legendCard}>
-          <div className={`${styles.swatch} ${styles.swatchOther}`} />
-          <div className={styles.swatchInfo}>
-            <span className={styles.swatchTitle}>Other Passenger</span>
-            <span className={styles.swatchPrice}>Reserved in party</span>
+        <div className={styles.legendItem}>
+          <div className={`${styles.swatchSeat} ${styles.swatchOther}`}>
+            <span className={styles.swatchLetter}>P</span>
+          </div>
+          <div className={styles.swatchText}>
+            <span className={styles.swatchName}>Party Member</span>
+            <span className={styles.swatchCost}>Assigned to companion</span>
           </div>
         </div>
 
-        <div className={styles.legendCard}>
-          <div className={`${styles.swatch} ${styles.swatchOccupied}`} />
-          <div className={styles.swatchInfo}>
-            <span className={styles.swatchTitle}>Occupied</span>
-            <span className={styles.swatchPrice}>Not selectable</span>
+        <div className={styles.legendItem}>
+          <div className={`${styles.swatchSeat} ${styles.swatchOccupied}`}>
+            <span className={styles.swatchLetter}>✕</span>
+          </div>
+          <div className={styles.swatchText}>
+            <span className={styles.swatchName}>Occupied</span>
+            <span className={styles.swatchCost}>Unavailable for booking</span>
           </div>
         </div>
       </div>

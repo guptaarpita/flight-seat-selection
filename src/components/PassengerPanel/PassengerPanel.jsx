@@ -16,13 +16,14 @@ export default function PassengerPanel() {
   return (
     <div className={styles.passengerPanel}>
       <div className={styles.panelHeader}>
-        <div>
-          <h2 className={styles.panelTitle}>
-            <span>👥</span> Flight Guests
-          </h2>
-          <p className={styles.panelSubtitle}>
-            Select a guest below, then click their preferred seat on the map
-          </p>
+        <div className={styles.titleWrapper}>
+          <div className={styles.titleIconBox}>👥</div>
+          <div>
+            <h2 className={styles.panelTitle}>Passenger Manifest</h2>
+            <p className={styles.panelSubtitle}>
+              Click a guest card to assign or change their aircraft seat
+            </p>
+          </div>
         </div>
       </div>
 
@@ -182,16 +183,21 @@ function PassengerCard({
                 title="Remove seat assignment"
                 aria-label={`Remove seat ${passenger.seatId}`}
               >
-                ✕ Remove
+                ✕ Release
               </button>
             </div>
           </div>
         ) : (
           <div className={styles.unassignedPrompt}>
             <span className={styles.promptIcon}>💺</span>
-            <span className={styles.promptText}>
-              {isActive ? 'Click an available seat on the aircraft map' : 'No seat selected yet'}
-            </span>
+            <div className={styles.promptTextGroup}>
+              <span className={styles.promptTitle}>
+                {isActive ? 'Select a seat on map' : 'No seat selected'}
+              </span>
+              <span className={styles.promptSub}>
+                {isActive ? 'Click any available seat' : 'Click card to assign'}
+              </span>
+            </div>
           </div>
         )}
       </div>

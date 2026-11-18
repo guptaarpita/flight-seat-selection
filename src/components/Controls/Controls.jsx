@@ -17,10 +17,11 @@ export default function Controls() {
   return (
     <section className={styles.controlsBar} aria-label="Flight Configuration Bar">
       <div className={styles.inner}>
-        {/* Layout Selection */}
+        {/* Aircraft Layout Selection */}
         <div className={styles.sectionBlock}>
           <div className={styles.blockTitle}>
-            <span>AIRCRAFT SEATING CONFIGURATION</span>
+            <span className={styles.titleIcon}>✈</span>
+            <span>AIRCRAFT CONFIGURATION</span>
           </div>
           <div className={styles.layoutGroup}>
             {ALL_LAYOUTS.map((layout) => {
@@ -34,28 +35,34 @@ export default function Controls() {
                 >
                   <div className={styles.layoutIconWrapper}>
                     <span className={styles.layoutIcon}>
-                      {layout.id === '3-2' ? '✈️' : '🛫'}
+                      {layout.id === '3-2' ? '🛫' : '✈️'}
                     </span>
                   </div>
                   <div className={styles.layoutInfo}>
-                    <span className={styles.layoutName}>{layout.label}</span>
-                    <span className={styles.layoutSub}>{layout.aircraftType}</span>
+                    <div className={styles.layoutTitleRow}>
+                      <span className={styles.layoutName}>{layout.label}</span>
+                      {isActive && <span className={styles.activeBadge}>SELECTED</span>}
+                    </div>
+                    <span className={styles.layoutSub}>
+                      {layout.id === '3-2' ? 'Airbus A320neo · Single Aisle' : 'Boeing 787 · Twin Aisle'}
+                    </span>
                   </div>
-                  {isActive && <span className={styles.activeCheck}>✓</span>}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Passenger Count Stepper */}
+        {/* Passenger Count Stepper & Guest Avatars */}
         <div className={styles.sectionBlock}>
           <div className={styles.blockTitle}>
-            <span>PASSENGERS ({state.passengerCount} OF {MAX_PASSENGERS})</span>
+            <span className={styles.titleIcon}>👥</span>
+            <span>GUEST SELECTION ({state.passengerCount} OF {MAX_PASSENGERS})</span>
           </div>
           <div className={styles.stepperContainer}>
             <div className={styles.stepper}>
               <button
+                type="button"
                 className={styles.stepBtn}
                 onClick={() => setPassengerCount(state.passengerCount - 1)}
                 disabled={state.passengerCount <= 1}
@@ -66,10 +73,11 @@ export default function Controls() {
               <div className={styles.stepperValue}>
                 <span className={styles.num}>{state.passengerCount}</span>
                 <span className={styles.label}>
-                  {state.passengerCount === 1 ? 'Guest' : 'Guests'}
+                  {state.passengerCount === 1 ? 'PASSENGER' : 'PASSENGERS'}
                 </span>
               </div>
               <button
+                type="button"
                 className={styles.stepBtn}
                 onClick={() => setPassengerCount(state.passengerCount + 1)}
                 disabled={state.passengerCount >= MAX_PASSENGERS}
@@ -79,17 +87,19 @@ export default function Controls() {
               </button>
             </div>
 
-            {/* Quick action buttons */}
+            {/* Quick Automation Actions */}
             <div className={styles.quickActions}>
               <button
-                className={styles.quickBtn}
+                type="button"
+                className={styles.autoAssignBtn}
                 onClick={autoAssignAll}
-                title="Automatically assign seats to all unassigned passengers"
+                title="Automatically assign available seats to all unassigned passengers"
               >
-                ⚡ Auto-Assign
+                ⚡ Smart Auto-Assign
               </button>
               <button
-                className={`${styles.quickBtn} ${styles.dangerBtn}`}
+                type="button"
+                className={styles.clearBtn}
                 onClick={clearAllSeats}
                 disabled={assignedCount === 0}
                 title="Clear all assigned seats"
@@ -103,31 +113,34 @@ export default function Controls() {
         {/* Category Highlight Filters */}
         <div className={styles.sectionBlock}>
           <div className={styles.blockTitle}>
-            <span>HIGHLIGHT SEAT TYPE</span>
+            <span className={styles.titleIcon}>🔍</span>
+            <span>FILTER CABIN TIERS</span>
           </div>
           <div className={styles.filterPills}>
             <button
+              type="button"
               className={`${styles.filterPill} ${state.categoryFilter === 'all' ? styles.filterActive : ''}`}
               onClick={() => setCategoryFilter('all')}
             >
-              All Seats
+              All Tiers
             </button>
             {Object.values(SEAT_CATEGORIES).map((cat) => {
               const isSelected = state.categoryFilter === cat.id;
               return (
                 <button
+                  type="button"
                   key={cat.id}
                   className={`${styles.filterPill} ${isSelected ? styles.filterActive : ''}`}
                   onClick={() => setCategoryFilter(isSelected ? 'all' : cat.id)}
-                  style={{
-                    '--cat-color': cat.color,
-                  }}
                 >
                   <span
                     className={styles.filterDot}
                     style={{ background: cat.color }}
                   />
-                  {cat.shortLabel} {cat.price === 0 ? '(Free)' : `(₹${cat.price})`}
+                  <span>{cat.shortLabel}</span>
+                  <span className={styles.filterPriceTag}>
+                    {cat.price === 0 ? 'Free' : `₹${cat.price}`}
+                  </span>
                 </button>
               );
             })}

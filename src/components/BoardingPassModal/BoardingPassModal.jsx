@@ -175,3 +175,4 @@ export default function BoardingPassModal() {
     </div>
   );
 }
+

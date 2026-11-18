@@ -1,12 +1,12 @@
 .mealContainer {
   background: #ffffff;
-  border-radius: 20px;
-  border: 1px solid #e2e8f0;
-  padding: 1.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  border: 1.5px solid #e2e8f0;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .header {
@@ -14,38 +14,39 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
-  padding-bottom: 1rem;
+  gap: 1.25rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid #f1f5f9;
 }
 
 .headerLeft {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 1.15rem;
 }
 
 .iconBox {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   background: #fef3c7;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   flex-shrink: 0;
+  border: 1px solid #fde68a;
 }
 
 .titleRow {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
 .title {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 800;
   font-family: 'Space Grotesk', sans-serif;
   color: #0f172a;
@@ -57,13 +58,13 @@
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  padding: 2px 8px;
+  padding: 3px 9px;
   border-radius: 99px;
   box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
 }
 
 .subtitle {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: #64748b;
   margin-top: 2px;
 }
@@ -71,22 +72,22 @@
 .mealTotalPill {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
   background: #f8fafc;
   border: 1.5px solid #e2e8f0;
-  padding: 0.45rem 0.85rem;
-  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  border-radius: 14px;
 }
 
 .mealTotalLabel {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
   color: #64748b;
 }
 
 .mealTotalValue {
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-size: 1.15rem;
+  font-weight: 900;
   font-family: 'Space Grotesk', sans-serif;
   color: #2563eb;
 }
@@ -94,46 +95,48 @@
 /* Guest Tabs */
 .guestTabs {
   display: flex;
-  gap: 0.65rem;
+  gap: 0.75rem;
   overflow-x: auto;
-  padding-bottom: 0.4rem;
+  padding-bottom: 0.5rem;
 }
 
 .guestTab {
   background: #f8fafc;
   border: 1.5px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 0.55rem 0.85rem;
+  border-radius: 14px;
+  padding: 0.65rem 1rem;
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.75rem;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .guestTab:hover {
   background: #f1f5f9;
   border-color: #cbd5e1;
+  transform: translateY(-1px);
 }
 
 .guestTabActive {
-  background: #eff6ff !important;
+  background: #ffffff !important;
   border-color: #2563eb !important;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15), 0 4px 12px rgba(37, 99, 235, 0.1) !important;
 }
 
 .tabInitial {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: #2563eb;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: #ffffff;
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
 }
 
 .tabText {
@@ -143,104 +146,111 @@
 }
 
 .tabName {
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
   color: #0f172a;
 }
 
 .tabMealBadge {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: #64748b;
   font-weight: 600;
 }
 
-/* Meal Grid */
+/* ─── Meal Cards Grid ─────────────────────────────────────────── */
 .mealGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 1.15rem;
 }
 
 .mealCard {
   background: #f8fafc;
   border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1.1rem;
+  border-radius: 18px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
   position: relative;
 }
 
 .mealCard:hover {
-  border-color: #93c5fa;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.08);
+  border-color: #93c5fd;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px -4px rgba(15, 23, 42, 0.1);
+  background: #ffffff;
 }
 
 .mealCardChosen {
   background: #ffffff !important;
   border-color: #2563eb !important;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15), 0 8px 20px -4px rgba(37, 99, 235, 0.12) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18), 0 12px 28px -4px rgba(37, 99, 235, 0.15) !important;
 }
 
 .cardBadges {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .dietaryBadge {
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-size: 0.68rem;
+  font-weight: 800;
   color: #64748b;
   background: #ffffff;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 99px;
   border: 1px solid #e2e8f0;
 }
 
 .freeBadge {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  color: #065f46;
+  color: #047857;
   background: #dcfce7;
-  padding: 2px 7px;
-  border-radius: 99px;
-}
-
-.paidBadge {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #2563eb;
-  background: #eff6ff;
+  border: 1px solid #a7f3d0;
   padding: 2px 8px;
   border-radius: 99px;
 }
 
+.paidBadge {
+  font-size: 0.75rem;
+  font-weight: 900;
+  font-family: 'Space Grotesk', sans-serif;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+
 .emojiContainer {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   text-align: center;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.85rem;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.06));
 }
 
 .mealName {
-  font-size: 0.92rem;
-  font-weight: 700;
+  font-size: 0.98rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
   color: #0f172a;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
   line-height: 1.3;
 }
 
 .mealDesc {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: #64748b;
-  line-height: 1.4;
+  line-height: 1.45;
   flex: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
 }
 
 .cardFooter {
@@ -249,9 +259,9 @@
 
 .selectBtn {
   width: 100%;
-  padding: 0.5rem;
-  border-radius: 8px;
-  font-size: 0.78rem;
+  padding: 0.55rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
   font-weight: 700;
   border: 1.5px solid #cbd5e1;
   background: #ffffff;
@@ -267,7 +277,14 @@
 }
 
 .selectedBtn {
-  background: #2563eb !important;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
   border-color: #2563eb !important;
   color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+@media (max-width: 640px) {
+  .mealContainer {
+    padding: 1.25rem;
+  }
 }

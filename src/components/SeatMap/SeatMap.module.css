@@ -1,233 +1,396 @@
-.fuselageWrapper {
+.aircraftStage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
   padding: 1.5rem 1rem;
   width: 100%;
+  position: relative;
 }
 
-/* Airplane Fuselage */
-.fuselage {
+/* Outer Fuselage */
+.fuselageContainer {
+  position: relative;
   background: #ffffff;
-  border: 3px solid #cbd5e1;
-  border-radius: 90px 90px 40px 40px;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 0 0 8px rgba(241, 245, 249, 0.8);
-  padding: 1.5rem 1.75rem 2rem;
+  border: 4px solid #cbd5e1;
+  border-radius: 120px 120px 48px 48px;
+  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.12), 0 0 0 10px rgba(241, 245, 249, 0.9);
+  padding: 1.75rem 2rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
   max-width: 100%;
-  overflow-x: auto;
 }
 
-/* Cockpit Nose */
-.cockpit {
+/* ─── Aircraft Wings (Rows 4–6) ────────────────────────────────── */
+.leftWingWrapper {
+  position: absolute;
+  top: 48%;
+  right: calc(100% + 2px);
+  width: 140px;
+  height: 220px;
+  pointer-events: none;
+}
+
+.wingStructure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 70%, #94a3b8 100%);
+  clip-path: polygon(100% 0%, 100% 100%, 0% 85%, 20% 10%);
+  border-top: 2px solid #cbd5e1;
+  border-bottom: 2px solid #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jetEngine {
+  position: absolute;
+  left: 35%;
+  top: 30%;
+  width: 38px;
+  height: 65px;
+  background: linear-gradient(90deg, #64748b 0%, #334155 50%, #1e293b 100%);
+  border-radius: 14px 14px 20px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  border: 1.5px solid #475569;
+}
+
+.wingFlapLines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 20px,
+    rgba(148, 163, 184, 0.4) 20px,
+    rgba(148, 163, 184, 0.4) 22px
+  );
+}
+
+.redNavBeacon {
+  position: absolute;
+  left: 4px;
+  top: 15%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 12px #ef4444;
+  animation: beaconBlinkRed 1.2s infinite ease-in-out;
+}
+
+.rightWingWrapper {
+  position: absolute;
+  top: 48%;
+  left: calc(100% + 2px);
+  width: 140px;
+  height: 220px;
+  pointer-events: none;
+}
+
+.wingStructureRight {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(225deg, #e2e8f0 0%, #cbd5e1 70%, #94a3b8 100%);
+  clip-path: polygon(0% 0%, 0% 100%, 100% 85%, 80% 10%);
+  border-top: 2px solid #cbd5e1;
+  border-bottom: 2px solid #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.greenNavBeacon {
+  position: absolute;
+  right: 4px;
+  top: 15%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 12px #10b981;
+  animation: beaconBlinkGreen 1.2s infinite ease-in-out;
+}
+
+.wingLabel {
+  position: absolute;
+  bottom: 12px;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #64748b;
+  opacity: 0.65;
+}
+
+/* ─── Cockpit Section ─────────────────────────────────────────── */
+.noseSection {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
-  padding-top: 0.5rem;
 }
 
-.noseCap {
-  width: 60px;
-  height: 12px;
+.noseRadome {
+  width: 70px;
+  height: 16px;
   background: linear-gradient(180deg, #94a3b8, #cbd5e1);
   border-radius: 99px 99px 0 0;
+  border: 1px solid #94a3b8;
 }
 
-.windshield {
+.cockpitCanopy {
   display: flex;
-  gap: 4px;
+  gap: 5px;
 }
 
-.windowLeft,
-.windowCenter,
-.windowRight {
-  height: 24px;
-  background: linear-gradient(180deg, #1e293b, #38bdf8);
-  border: 1.5px solid #0f172a;
+.windshieldLeft,
+.windshieldCenter,
+.windshieldRight {
+  height: 28px;
+  background: linear-gradient(180deg, #0f172a 0%, #0369a1 70%, #38bdf8 100%);
+  border: 2px solid #0f172a;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4);
 }
 
-.windowCenter {
-  width: 38px;
+.windshieldCenter {
+  width: 44px;
   border-radius: 4px 4px 0 0;
 }
 
-.windowLeft {
-  width: 22px;
-  border-radius: 12px 4px 0 0;
-  transform: skewX(-12deg);
+.windshieldLeft {
+  width: 26px;
+  border-radius: 16px 4px 0 0;
+  transform: skewX(-14deg);
 }
 
-.windowRight {
-  width: 22px;
-  border-radius: 4px 12px 0 0;
-  transform: skewX(12deg);
+.windshieldRight {
+  width: 26px;
+  border-radius: 4px 16px 0 0;
+  transform: skewX(14deg);
 }
 
-.cockpitLabel {
-  font-size: 0.62rem;
+.aircraftBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 0.65rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #64748b;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #475569;
 }
 
-/* Bulkheads (Galley & Restrooms) */
-.frontBulkhead,
-.rearBulkhead {
+.aircraftIcon {
+  color: #2563eb;
+}
+
+/* ─── Cabin Bulkhead (Restrooms & Galley) ──────────────────────── */
+.cabinBulkhead,
+.aftBulkhead {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   background: #f8fafc;
   border: 1.5px dashed #cbd5e1;
-  border-radius: 10px;
-  padding: 0.4rem 1rem;
-  margin-bottom: 1rem;
+  border-radius: 12px;
+  padding: 0.5rem 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
-.rearBulkhead {
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+.aftBulkhead {
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
 }
 
-.facilityPill {
+.amenityCard {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #64748b;
+  gap: 0.4rem;
   background: #ffffff;
-  padding: 3px 10px;
-  border-radius: 6px;
   border: 1px solid #e2e8f0;
+  padding: 4px 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
 }
 
-.curtainDivider {
-  height: 14px;
-  width: 1px;
-  background: #cbd5e1;
+.amenityIcon {
+  font-size: 0.95rem;
 }
 
-/* Column Header Row */
+.amenityText {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.cockpitDoorPill {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  background: #e2e8f0;
+  padding: 2px 10px;
+  border-radius: 99px;
+}
+
+/* ─── Column Letters Header ───────────────────────────────────── */
 .colHeaderRow {
   display: flex;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
   width: 100%;
 }
 
-.colHeaderCell {
-  width: 44px;
+.rowSpacer {
+  width: 34px;
+  flex-shrink: 0;
+}
+
+.headerLetter {
+  width: 46px;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 800;
   color: #475569;
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* Cabin Seating Grid */
-.cabinGrid {
+/* ─── Cabin Interior & Seat Rows ──────────────────────────────── */
+.cabinInterior {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.65rem;
   width: 100%;
 }
 
-.rowContainer {
+.rowWrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.35rem;
   position: relative;
 }
 
-.exitRowBanner {
+.emergencyExitBanner {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   background: #ecfdf5;
   border: 1px dashed #10b981;
-  border-radius: 6px;
-  padding: 2px 8px;
+  border-radius: 8px;
+  padding: 3px 12px;
   font-size: 0.62rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #065f46;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .seatRow {
   display: flex;
   align-items: center;
   position: relative;
-  transition: background 0.15s;
+  padding: 2px 0;
 }
 
 .exitRowHighlight {
   background: rgba(16, 185, 129, 0.04);
-  border-radius: 10px;
-  padding: 2px 0;
+  border-radius: 12px;
 }
 
-.exitDoorTab {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 12px;
-  height: 28px;
-  background: #10b981;
-  border-radius: 3px;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
-}
-
-.exitLeft {
-  left: -20px;
-}
-
-.exitRight {
-  right: -20px;
-}
-
-.rowNumberCol {
-  width: 32px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #94a3b8;
+.rowNumberPill {
+  width: 34px;
+  font-size: 0.82rem;
+  font-weight: 800;
   font-family: 'Space Grotesk', sans-serif;
+  color: #94a3b8;
   text-align: center;
   flex-shrink: 0;
 }
 
-.seatGroup {
+.seatCluster {
   display: flex;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
-/* Aisle */
-.aisle {
-  flex-shrink: 0;
+/* Oval Aircraft Windows on Cabin Walls */
+.cabinWindow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 22px;
+  background: #e2e8f0;
+  border: 2px solid #cbd5e1;
+  border-radius: 99px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.window_left {
+  left: -22px;
+}
+
+.window_right {
+  right: -22px;
+}
+
+.windowGlass {
+  width: 8px;
+  height: 14px;
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  border-radius: 99px;
+}
+
+/* Emergency Exit Doors */
+.exitDoor {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 32px;
+  background: #10b981;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+  z-index: 5;
+}
+
+.exitDoorLeft {
+  left: -28px;
+}
+
+.exitDoorRight {
+  right: -28px;
+}
+
+/* ─── Aisle with LED Pathway Lights ────────────────────────────── */
+.aisle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
 .aisle_normal {
-  width: 36px;
+  width: 40px;
 }
 
 .aisle_narrow {
-  width: 24px;
+  width: 26px;
 }
 
 .aisleCarpet {
-  width: 100%;
+  flex: 1;
   height: 2px;
   background: repeating-linear-gradient(
     90deg,
@@ -238,161 +401,203 @@
   );
 }
 
-/* ─── Individual Seat ─────────────────────────────────────────── */
+.aisleLedStripLeft,
+.aisleLedStripRight {
+  width: 2px;
+  height: 28px;
+  background: rgba(56, 189, 248, 0.4);
+  border-radius: 99px;
+}
+
+/* ─── Ergonomic Contoured Seat Component ──────────────────────── */
 .seatContainer {
   position: relative;
 }
 
 .seat {
-  width: 44px;
-  height: 48px;
-  border-radius: 8px 8px 10px 10px;
+  width: 46px;
+  height: 52px;
+  border-radius: 10px 10px 12px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 3px 2px 4px;
+  justify-content: flex-start;
+  padding: 3px 2px 2px;
   border: 1.5px solid transparent;
   cursor: pointer;
   position: relative;
   outline: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s;
+  background: #f1f5f9;
+  box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, filter 0.18s;
 }
 
 .seat:hover:not(:disabled) {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-  z-index: 10;
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.22);
+  z-index: 20;
 }
 
 .seat:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
-.seat:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
-
-.dimmed {
-  opacity: 0.28 !important;
-  filter: grayscale(60%);
-}
-
-.headrest {
-  width: 26px;
-  height: 4px;
+/* Leather Headrest with stitch */
+.headrestWrapper {
+  width: 28px;
+  height: 6px;
   background: rgba(255, 255, 255, 0.45);
+  border-radius: 99px;
+  margin-bottom: 2px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.headrestCushion {
+  width: 100%;
+  height: 100%;
   border-radius: 99px;
 }
 
-.colLetter {
-  font-size: 0.75rem;
+/* Armrests */
+.armrestLeft,
+.armrestRight {
+  position: absolute;
+  top: 14px;
+  width: 3px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.armrestLeft {
+  left: 1px;
+}
+
+.armrestRight {
+  right: 1px;
+}
+
+/* Seat Cushion Core */
+.seatCushion {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 3px;
+}
+
+.seatLetter {
+  font-size: 0.78rem;
   font-weight: 800;
   color: #ffffff;
   line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.priceTag {
+.seatPriceTag {
   font-size: 0.52rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: rgba(255, 255, 255, 0.95);
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.25);
   padding: 1px 4px;
   border-radius: 4px;
   line-height: 1.1;
 }
 
-/* Seat Categories Visuals */
+/* ─── Category Styles ─────────────────────────────────────────── */
 .cat_free {
-  background: #10b981;
-  border-color: #059669;
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  border-color: #047857;
 }
 
 .cat_free:hover:not(:disabled) {
-  background: #059669;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.45) !important;
 }
 
 .cat_standard {
-  background: #2563eb;
-  border-color: #1d4ed8;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+  border-color: #1e40af;
 }
 
 .cat_standard:hover:not(:disabled) {
-  background: #1d4ed8;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.45) !important;
 }
 
 .cat_extraLegroom {
-  background: #d97706;
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
   border-color: #b45309;
-  box-shadow: 0 2px 4px rgba(217, 119, 6, 0.2);
 }
 
 .cat_extraLegroom:hover:not(:disabled) {
-  background: #b45309;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.45) !important;
 }
 
 .cat_premium {
-  background: #7c3aed;
+  background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
   border-color: #6d28d9;
-  box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
 }
 
 .cat_premium:hover:not(:disabled) {
-  background: #6d28d9;
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.45) !important;
 }
 
 /* Occupied State */
 .occupied {
-  background: #94a3b8 !important;
-  border-color: #64748b !important;
-  opacity: 0.65;
+  background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%) !important;
+  border-color: #475569 !important;
+  opacity: 0.6 !important;
   cursor: not-allowed !important;
   box-shadow: none !important;
 }
 
 .occupiedCross {
-  font-size: 0.8rem;
-  font-weight: 800;
+  font-size: 0.85rem;
+  font-weight: 900;
   color: #f1f5f9;
 }
 
-/* Selected by Active Passenger */
+/* Selected Active Passenger State */
 .selected_active {
-  background: #dc2626 !important;
-  border-color: #991b1b !important;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.35), 0 6px 14px rgba(220, 38, 38, 0.4) !important;
-  animation: pulseActive 1.2s infinite ease-in-out alternate;
-  z-index: 5;
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%) !important;
+  border-color: #b91c1c !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 8px 20px rgba(220, 38, 38, 0.45) !important;
+  animation: pulseActive 1.4s infinite ease-in-out alternate;
+  z-index: 10;
 }
 
 @keyframes pulseActive {
-  from { transform: scale(1); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.35); }
-  to { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.15); }
+  from {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 8px 20px rgba(220, 38, 38, 0.45);
+  }
+  to {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 7px rgba(239, 68, 68, 0.15), 0 12px 26px rgba(220, 38, 38, 0.55);
+  }
 }
 
 .activeCheck {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 900;
   color: #ffffff;
 }
 
-/* Selected by Another Passenger */
+/* Selected by Another Companion */
 .selected_other {
-  background: #ea580c !important;
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%) !important;
   border-color: #c2410c !important;
   cursor: not-allowed !important;
   opacity: 0.9;
 }
 
-.otherInitials {
+.otherPill {
   font-size: 0.72rem;
   font-weight: 800;
   color: #ffffff;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.3);
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -401,28 +606,32 @@
   justify-content: center;
 }
 
-/* ─── Rich Tooltip ────────────────────────────────────────────── */
+.dimmed {
+  opacity: 0.22 !important;
+  filter: grayscale(80%);
+}
+
+/* ─── Interactive Floating Tooltip ────────────────────────────── */
 .tooltip {
   position: absolute;
-  bottom: calc(100% + 10px);
+  bottom: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%);
   background: #0f172a;
   color: #ffffff;
-  padding: 0.65rem 0.85rem;
-  border-radius: 10px;
-  font-size: 0.75rem;
-  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3);
-  z-index: 100;
+  padding: 0.75rem 0.95rem;
+  border-radius: 12px;
+  box-shadow: 0 14px 30px -4px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  z-index: 150;
   pointer-events: none;
-  min-width: 170px;
-  max-width: 220px;
+  min-width: 190px;
+  max-width: 240px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  animation: tipFade 0.15s ease-out;
+  animation: tooltipEnter 0.15s ease-out;
 }
 
-@keyframes tipFade {
-  from { opacity: 0; transform: translate(-50%, 6px); }
+@keyframes tooltipEnter {
+  from { opacity: 0; transform: translate(-50%, 8px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
@@ -442,144 +651,228 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
 }
 
-.tooltipSeatId {
-  font-size: 0.9rem;
-  font-weight: 800;
-  font-family: 'Space Grotesk', sans-serif;
-  color: #38bdf8;
-}
-
-.tooltipBadge {
-  font-size: 0.62rem;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 99px;
-  letter-spacing: 0.02em;
-}
-
-.tooltipFeature {
-  font-size: 0.68rem;
-  color: #cbd5e1;
-  margin-bottom: 0.35rem;
-  line-height: 1.3;
-}
-
-.tooltipStatus {
-  font-size: 0.68rem;
-  padding-top: 0.3rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.statusOccupied {
-  color: #fca5a5;
-  font-weight: 600;
-}
-
-.statusActive {
-  color: #86efac;
-  font-weight: 600;
-}
-
-.statusOther {
-  color: #fdba74;
-  font-weight: 600;
-}
-
-.statusAvailable {
-  color: #e2e8f0;
-}
-
-.statusAvailable strong {
-  color: #38bdf8;
-}
-
-/* Airplane Tail */
-.planeTail {
-  width: 44px;
-  height: 20px;
-  background: #cbd5e1;
-  border-radius: 0 0 99px 99px;
-  margin-top: 0.5rem;
-}
-
-/* ─── Legend ─────────────────────────────────────────────────── */
-.legendContainer {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1.25rem 1.5rem;
-  width: 100%;
-  max-width: 780px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
-.legendHeading {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #64748b;
-  margin-bottom: 0.85rem;
-}
-
-.legendGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.75rem;
-}
-
-.legendCard {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.35rem 0.5rem;
-  border-radius: 8px;
-  background: #f8fafc;
-}
-
-.swatch {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  flex-shrink: 0;
-}
-
-.swatchFree { background: #10b981; }
-.swatchStandard { background: #2563eb; }
-.swatchExtraLegroom { background: #d97706; }
-.swatchPremium { background: #7c3aed; }
-.swatchActive { background: #dc2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.3); }
-.swatchOther { background: #ea580c; }
-.swatchOccupied { background: #94a3b8; }
-
-.swatchInfo {
+.tooltipTitleGroup {
   display: flex;
   flex-direction: column;
 }
 
-.swatchTitle {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #1e293b;
+.tooltipSeatId {
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  color: #38bdf8;
+  line-height: 1;
 }
 
-.swatchPrice {
+.tooltipFeatureTag {
   font-size: 0.65rem;
-  color: #64748b;
+  color: #cbd5e1;
+  font-weight: 600;
 }
 
-@media (max-width: 520px) {
+.tooltipCatBadge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+  border: 1px solid;
+}
+
+.tooltipSpecs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.68rem;
+  color: #94a3b8;
+  padding: 0.35rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.35rem;
+}
+
+.tooltipFooter {
+  font-size: 0.7rem;
+}
+
+.statusOccupiedBox {
+  color: #fca5a5;
+  font-weight: 600;
+}
+
+.statusActiveBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  color: #86efac;
+}
+
+.statusOtherBox {
+  color: #fdba74;
+}
+
+.statusAvailableBox {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fareLabel {
+  color: #f1f5f9;
+}
+
+.fareLabel strong {
+  color: #38bdf8;
+  font-weight: 800;
+}
+
+.tooltipClickHint {
+  font-size: 0.62rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Tail Cone */
+.aircraftTailCone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.tailFin {
+  width: 50px;
+  height: 24px;
+  background: #cbd5e1;
+  border-radius: 0 0 99px 99px;
+  border: 2px solid #94a3b8;
+  border-top: none;
+}
+
+/* ─── Legend Container ────────────────────────────────────────── */
+.legendContainer {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 1.5rem 1.75rem;
+  width: 100%;
+  max-width: 860px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+}
+
+.legendHeader {
+  margin-bottom: 1.15rem;
+}
+
+.legendTitle {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #475569;
+}
+
+.legendSub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.legendGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.85rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+}
+
+.swatchSeat {
+  width: 32px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.swatchLetter {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.swatchFree { background: linear-gradient(180deg, #10b981 0%, #059669 100%); }
+.swatchStandard { background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%); }
+.swatchExtraLegroom { background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%); }
+.swatchPremium { background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%); }
+.swatchActive { background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.4); }
+.swatchOther { background: linear-gradient(180deg, #f97316 0%, #ea580c 100%); }
+.swatchOccupied { background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%); opacity: 0.65; }
+
+.swatchText {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.swatchName {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.countBadge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 1px 6px;
+  border-radius: 99px;
+}
+
+.swatchCost {
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* ─── Responsive Queries ──────────────────────────────────────── */
+@media (max-width: 1280px) {
+  .leftWingWrapper,
+  .rightWingWrapper {
+    display: none; /* Hide large wings on mid screens to prevent overflowing */
+  }
+}
+
+@media (max-width: 540px) {
+  .fuselageContainer {
+    padding: 1.25rem 0.85rem;
+    border-radius: 80px 80px 32px 32px;
+  }
   .seat {
-    width: 36px;
-    height: 40px;
+    width: 38px;
+    height: 44px;
+    border-radius: 8px;
   }
-  .colHeaderCell {
-    width: 36px;
+  .headerLetter {
+    width: 38px;
   }
-  .priceTag {
+  .seatPriceTag {
     display: none;
   }
   .aisle_normal {
@@ -588,8 +881,7 @@
   .aisle_narrow {
     width: 16px;
   }
-  .fuselage {
-    padding: 1rem 0.75rem;
-    border-radius: 60px 60px 30px 30px;
+  .cabinWindow {
+    display: none;
   }
 }
