@@ -87,13 +87,17 @@ Already owned by Active Guest? ──► YES ──► Toggle Off: Free Seat & R
 
 ## 🍽️ Bonus Feature: In-Flight Meal Service
 
-Pre-order meals per passenger:
-1. **Indian Veg Thali** (Complimentary · ₹0)
-2. **Fresh Seasonal Fruit Platter** (Vegan/Healthy · ₹0)
-3. **Dum Awadhi Chicken Biryani** (Chef Special · ₹249)
-4. **Creamy Penne Alfredo** (Italian Classic · ₹189)
-5. **Smoked Chicken Club Sandwich** (Quick Bite · ₹149)
-6. **No Meal** (Opt-out · ₹0)
+Pre-order meals per passenger (Free and Premium Options):
+1. **No Meal** (Opt-out · ₹0)
+2. **Indian Veg Thali** (Complimentary · ₹0)
+3. **Fresh Seasonal Fruit Platter** (Vegan/Healthy · ₹0)
+4. **Dum Awadhi Chicken Biryani** (Chef Special · ₹249)
+5. **Creamy Penne Alfredo** (Italian Classic · ₹189)
+6. **Smoked Chicken Club Sandwich** (Quick Bite · ₹149)
+7. **South Indian Tiffin Combo** (Complimentary · ₹0)
+8. **Atlantic Grilled Salmon** (Gourmet Non-Veg · ₹349)
+9. **Paneer Tikka Kathi Roll** (Vegetarian Street Style · ₹169)
+10. **Belgian Truffle Mousse & Macarons** (Artisan Dessert · ₹129)
 
 ---
 

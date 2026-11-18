@@ -339,6 +339,42 @@ export const MEAL_OPTIONS = [
     emoji: '🥪',
     badge: 'Quick Bite',
   },
+  {
+    id: 'south-indian-combo',
+    label: 'South Indian Tiffin Combo',
+    description: 'Steamed button idlis, crispy medu vada, spiced sambar & fresh coconut chutney',
+    price: 0,
+    dietary: 'Vegetarian',
+    emoji: '🥘',
+    badge: 'Free',
+  },
+  {
+    id: 'grilled-salmon',
+    label: 'Atlantic Grilled Salmon',
+    description: 'Pan-seared salmon fillet, citrus quinoa, grilled asparagus & lemon dill glaze',
+    price: 349,
+    dietary: 'Non-Vegetarian',
+    emoji: '🐟',
+    badge: 'Gourmet',
+  },
+  {
+    id: 'paneer-tikka-roll',
+    label: 'Paneer Tikka Kathi Roll',
+    description: 'Char-grilled cottage cheese, pickled onions, mint chutney in flaky paratha & potato wedges',
+    price: 169,
+    dietary: 'Vegetarian',
+    emoji: '🌯',
+    badge: 'Popular',
+  },
+  {
+    id: 'chocolate-mousse',
+    label: 'Belgian Truffle Mousse & Macarons',
+    description: 'Decadent dark chocolate mousse cup with almond macarons & fresh berry compote',
+    price: 129,
+    dietary: 'Vegetarian',
+    emoji: '🍰',
+    badge: 'Dessert',
+  },
 ];
 
 export const MAX_PASSENGERS = 6;
